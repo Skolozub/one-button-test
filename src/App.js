@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./styles.css";
 import { testsData } from "./test.json";
-import { Item } from "./test-components/item";
+import { Item } from "./test-components/item/item";
 import { addListeners, removeListeners } from "./functions";
 import { Timeline } from "./other-components/time-line";
 
@@ -21,14 +21,12 @@ export default () => {
 
   useEffect(() => {
     const id = setInterval(() => {
-      index < 2 ? setIndex(i => index + 1) : setIndex(0);
-      // console.log(refsArr.current[index].current);
+      index < 2 ? setIndex(i => i + 1) : setIndex(0);
     }, INTERVAL_TIME);
-    console.log(index);
+
     return () => clearInterval(id);
   }, [index]);
 
-  console.log("checked", checked);
   return (
     <>
       <Timeline

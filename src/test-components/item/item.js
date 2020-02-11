@@ -1,14 +1,7 @@
 import React, { useRef, useEffect } from "react";
+import cn from "classnames";
 
-const stylesActive = {
-  color: "red",
-  fontWeight: "bold"
-};
-
-const stylesChecked = {
-  color: "green",
-  fontWeight: "bold"
-};
+import styles from "./item.module.scss";
 
 export const Item = ({
   id,
@@ -26,13 +19,17 @@ export const Item = ({
   }, [refsArr, id]);
 
   const onClickHandler = () => {
-    console.log(name);
     setCheckedHandler(id);
   };
 
   return (
     <div
-      style={checked ? stylesChecked : active ? stylesActive : {}}
+      className={cn(
+        styles.item,
+        { [styles.withState]: active || checked },
+        { [styles.active]: active },
+        { [styles.checked]: checked }
+      )}
       ref={itemRef}
       onClick={onClickHandler}
     >

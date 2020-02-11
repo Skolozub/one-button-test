@@ -1,0 +1,11 @@
+.item{
+  &.withState{
+    font-weight: bold;
+  }
+  &.active{
+    color: red;
+  }
+  &.checked{
+    color: green;
+  }
+}
