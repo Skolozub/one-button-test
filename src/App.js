@@ -16,7 +16,10 @@ export default () => {
 
   useEffect(() => {
     removeListeners(["click", "keypress"], document, listener.current);
-    listener.current = () => refsArr.current[index].current.click();
+    listener.current = () => {
+      refsArr.current[index].current.click();
+      setChecked(index);
+    };
     addListeners(["click", "keypress"], document, listener.current);
   }, [index]);
 
@@ -28,6 +31,15 @@ export default () => {
     return () => clearInterval(id);
   }, [index]);
 
+  const setActiveElemenet = (obj, i) =>
+    Object.values(obj).map(elem =>
+      elem.id === i ? { ...elem, active: true } : elem
+    );
+  const setCheckedElemenet = (obj, i) =>
+    Object.values(obj).map(elem =>
+      elem.id === i ? { ...elem, checked: true } : elem
+    );
+
   return (
     <>
       <Cover />
@@ -36,20 +48,11 @@ export default () => {
         style={{ animationDuration: `${INTERVAL_TIME}ms` }}
       />
       <ItemsWrapper>
-        {Object.values({
-          ...testsData,
-          [index]: { ...testsData[index], active: true },
-          ...(checked !== undefined
-            ? { [checked]: { ...testsData[checked], checked: true } }
-            : {})
-        }).map(item => (
-          <Item
-            key={item.id}
-            {...item}
-            refsArr={refsArr}
-            setCheckedHandler={setChecked}
-          />
-        ))}
+        {setActiveElemenet(setCheckedElemenet(testsData, checked), index).map(
+          item => (
+            <Item key={item.id} {...item} refsArr={refsArr} />
+          )
+        )}
       </ItemsWrapper>
     </>
   );

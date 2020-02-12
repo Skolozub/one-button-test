@@ -4,24 +4,12 @@ import PseudoBtn from "../../other-components/pseudo-button/pseudo-button";
 
 import styles from "./item.module.scss";
 
-export const Item = ({
-  id,
-  name,
-  src,
-  active,
-  checked,
-  refsArr,
-  setCheckedHandler
-}) => {
+export const Item = ({ id, name, src, active, checked, refsArr }) => {
   const itemRef = useRef();
 
   useEffect(() => {
     refsArr.current = { ...refsArr.current, [id]: itemRef };
   }, [refsArr, id]);
-
-  const onClickHandler = () => {
-    setCheckedHandler(id);
-  };
 
   return (
     <PseudoBtn
@@ -32,7 +20,7 @@ export const Item = ({
         { [styles.checked]: checked }
       )}
       forwardRef={itemRef}
-      onClick={onClickHandler}
+      onClick={() => console.log(name)}
     >
       <div className={styles.image}>{src}</div>
       <div className={styles.name}>{name}</div>
