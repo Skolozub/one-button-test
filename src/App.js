@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import "./styles.css";
 import { testsData } from "./test.json";
 import { Item } from "./test-components/item/item";
 import { addListeners, removeListeners } from "./functions";
-import { Timeline } from "./other-components/time-line";
+import { Timeline } from "./other-components/timeline/timeline";
+import { Cover } from "./test-components/cover/cover.js";
+import { ItemsWrapper } from "./wrappers/items-wrapper/items-wrapper.js";
 
 const INTERVAL_TIME = 5000;
 
@@ -29,24 +30,27 @@ export default () => {
 
   return (
     <>
+      <Cover />
       <Timeline
         key={index}
         style={{ animationDuration: `${INTERVAL_TIME}ms` }}
       />
-      {Object.values({
-        ...testsData,
-        [index]: { ...testsData[index], active: true },
-        ...(checked !== undefined
-          ? { [checked]: { ...testsData[checked], checked: true } }
-          : {})
-      }).map(item => (
-        <Item
-          key={item.id}
-          {...item}
-          refsArr={refsArr}
-          setCheckedHandler={setChecked}
-        />
-      ))}
+      <ItemsWrapper>
+        {Object.values({
+          ...testsData,
+          [index]: { ...testsData[index], active: true },
+          ...(checked !== undefined
+            ? { [checked]: { ...testsData[checked], checked: true } }
+            : {})
+        }).map(item => (
+          <Item
+            key={item.id}
+            {...item}
+            refsArr={refsArr}
+            setCheckedHandler={setChecked}
+          />
+        ))}
+      </ItemsWrapper>
     </>
   );
 };

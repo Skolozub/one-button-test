@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import cn from "classnames";
+import PseudoBtn from "../../other-components/pseudo-button/pseudo-button";
 
 import styles from "./item.module.scss";
 
@@ -23,18 +24,18 @@ export const Item = ({
   };
 
   return (
-    <div
+    <PseudoBtn
       className={cn(
         styles.item,
         { [styles.withState]: active || checked },
         { [styles.active]: active },
         { [styles.checked]: checked }
       )}
-      ref={itemRef}
+      forwardRef={itemRef}
       onClick={onClickHandler}
     >
-      <img src={src} alt="" />
-      {name}
-    </div>
+      <div className={styles.image}>{src}</div>
+      <div className={styles.name}>{name}</div>
+    </PseudoBtn>
   );
 };

@@ -1,11 +1,25 @@
 .item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid;
+  border-radius: 3px;
+  margin: 5px;
+  width: 120px;
+  height: 150px;
+
   &.withState{
     font-weight: bold;
   }
   &.active{
-    color: red;
+    border-color: red;
   }
   &.checked{
-    color: green;
+    border-color: green;
   }
+}
+
+.image{
+  margin-bottom: 10px;
 }
